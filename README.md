@@ -20,13 +20,20 @@ pip install discord-webhook
 
 ## Usage
 To start the DiscordWebhookCenter you can type following in the
-command line / terminal / shell
+command line / terminal / shell or just start the python file
+_DiscordWebhookCenter.py_ directly.
 
 ```bash
 python3 DiscordWebhookCenter.py
+```
+or sometimes (depends on your configuration)
+```bash
+py DiscordWebhookCenter.py
 ```
 
 ## TODOs
 The gollowing points are going to be implemented in the future:
 * Exception handling for sending requests
 * Add license
+
+## License
