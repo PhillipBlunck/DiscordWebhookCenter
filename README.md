@@ -35,5 +35,6 @@ py DiscordWebhookCenter.py
 The gollowing points are going to be implemented in the future:
 * Exception handling for sending requests
 * Add license
+* Add makefile commands and description in README
 
 ## License
