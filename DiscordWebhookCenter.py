@@ -123,9 +123,9 @@ class MainApp:
         # See https://discord.com/developers/docs/topics/opcodes-and-status-codes
         # for status codes
         if msg <= REQUEST_SUCCESS: # TODO: Maybe exception handling better
-            msg = "Message successfully\nsend."
+            msg = "Message successfully\nsend.\n"
         else:
-            msg = f"Failed to send message.\nError code: {msg}"
+            msg = f"Failed to send message.\nError code: {msg}\n"
         # show response in history
         self.txt_return.config(state=tk.NORMAL)
         self.txt_return.insert(tk.INSERT, msg)
