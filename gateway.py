@@ -14,9 +14,10 @@ import file
 
 ######################################################################################
 
+DEBUG_FLAG = True
 EMPTY = ""
 CHAR_LIM = 500
-DEBUG_FLAG = True
+NO_FILE = "No json file found!"
 
 ######################################################################################
 
@@ -24,27 +25,27 @@ class Gateway:
 
     def __init__(self):
         # TODO: Set Gateway settings
-        self.filehdl = file.FileHandler()
-        self.set_config()
-        self.webhook = DiscordWebhook(
-            url=""
-        )
+        self.filehdl = file.FileHandler("settings.json")
+        self.config = self.filehdl.read()
+        if NO_FILE in self.config:
+            self.config.clear()
+            self.webhook = DiscordWebhook(
+                url=""
+            )
+        else:
+            if DEBUG_FLAG: print(self.config[1])
+            self.webhook = DiscordWebhook(
+                url=self.config[1]
+            )
 
     def get_config(self):
-        # TODO: returns the parameter
-        pass
-
-    def set_config(self):
-        """Reads textfile and sets the settings of an Gateway instance.
-        """
-        # TODO: open file and save configs
-        pass
+        return self.config
 
     def send(self, data):
         """Sends the user defined message to a Discord Server
         and returns the execution response.
         """
-        # Collect data
+        # Collect data and assemble
         if self.webhook.url != EMPTY and not self.check_data_limit(data):
             embed = DiscordEmbed(
                 title=data[0],
@@ -71,7 +72,7 @@ class Gateway:
         ret = False
         for dat in data:
             if DEBUG_FLAG: print(f"Len of DATA o: {len(dat)}")
-            if len(dat) > CHAR_LIM or len(dat) == 0:
+            if len(dat) > CHAR_LIM:
                 ret = True
                 break
         return ret
