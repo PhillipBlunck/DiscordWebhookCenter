@@ -24,7 +24,7 @@ NO_FILE = "No json file found!"
 class Gateway:
 
     def __init__(self):
-        # TODO: Set Gateway settings
+        # read settings file and set init gateway settings
         self.filehdl = file.FileHandler("settings.json")
         self.config = self.filehdl.read()
         if NO_FILE in self.config:
@@ -41,10 +41,15 @@ class Gateway:
     def get_config(self):
         return self.config
 
-    def send(self, data):
+    def send(self, data, server):
         """Sends the user defined message to a Discord Server
         and returns the execution response.
         """
+        # get selected webhook
+        if server in self.config and server is not EMPTY:
+            self.webhook.url = self.config[self.config.index(server)+1]
+        else:
+            self.webhook.url = EMPTY
         # Collect data and assemble
         if self.webhook.url != EMPTY and not self.check_data_limit(data):
             embed = DiscordEmbed(
