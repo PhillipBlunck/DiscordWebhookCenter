@@ -118,6 +118,8 @@ class MainApp:
         data.append(self.entr_author.get())
         data.append(self.entr_picture.get())
         data.append(self.entr_footer.get())
+        # TODO: Extend and add field
+        
         # send data
         msg = self.gateway.send(data)
         # See https://discord.com/developers/docs/topics/opcodes-and-status-codes
