@@ -32,15 +32,6 @@ class MainApp:
         # Create and place content of frame
         self.lbl_select = tk.Label(master=self.frm_settings, text="Active Webhook:")
         self.lbl_select.pack(side=tk.LEFT)
-        
-        self.mb = tk.Menubutton(master=self.frm_settings, text="Select Webhook",
-            relief=tk.RAISED
-        )
-        self.mb.pack(side=tk.LEFT)
-        self.mb.menu = tk.Menu(self.mb, tearoff=0)
-        self.mb["menu"] = self.mb.menu
-        self.mb.menu.add_checkbutton(label="Webhook 1", variable=0)
-        self.mb.menu.add_checkbutton(label="Webhook 2", variable=1)
 
         # Create frame for webhook content
         self.frm_content = tk.LabelFrame(master=frame,
@@ -84,7 +75,7 @@ class MainApp:
         )
         self.txt_return = tk.Text(master=self.frm_result)
         self.txt_return.config(state=tk.NORMAL)
-        self.txt_return.insert(tk.INSERT,"Return status of webhook message.\n")
+        self.txt_return.insert(tk.INSERT, "Return status of webhook message.\n")
         self.txt_return.config(state=tk.DISABLED)
 
         self.btn_settings = tk.Button(master=self.frm_result,
@@ -108,6 +99,16 @@ class MainApp:
         # gateway for client server handling
         self.gateway = gateway
 
+        # generate and update option menu
+        self.mboptions = self.gateway.get_config()
+        self.mbvar = tk.StringVar(self.frm_settings)
+        self.mbvar.set(self.mboptions[0])
+        self.mb = tk.OptionMenu(self.frm_settings, self.mbvar,
+            self.mboptions[0], self.mboptions[2]
+        )
+        self.mb.config(height=1)
+        self.mb.pack(side=tk.LEFT)
+
     def send_btn_exec(self):
         """When a user pressed the send button, the data of all input fields
         is send to a discord server by the gateway.
@@ -121,7 +122,7 @@ class MainApp:
         # TODO: Extend and add field
         
         # send data
-        msg = self.gateway.send(data)
+        msg = self.gateway.send(data, self.mbvar.get())
         # See https://discord.com/developers/docs/topics/opcodes-and-status-codes
         # for status codes
         if msg <= REQUEST_SUCCESS: # TODO: Maybe exception handling better
@@ -137,10 +138,15 @@ class MainApp:
 
     def settings_btn_exec(self):
         if DEBUG_FLAG: print("Open settings!")
+        # TODO: Add methods for edit the settings
 
     def clearInputs(self):
-        # TODO: Clear the Entry-Fields
-        pass
+        self.entr_author.delete(0, 'end')
+        self.entr_title.delete(0, 'end')
+        self.txt_descrpt.delete(0.0, 'end')
+        self.entr_fields.delete(0, 'end')
+        self.entr_picture.delete(0, 'end')
+        self.entr_footer.delete(0, 'end')
 
 ######################################################################################
 
@@ -152,7 +158,7 @@ def main():
     root = tk.Tk()
     root.title("Discord Webhook Center")
     root.resizable(width=False, height=False)
-    root.geometry("800x600")
+    root.geometry("800x610")
     # set gateway instance
     gateway = gate.Gateway()
     # load gui
