@@ -24,35 +24,59 @@ class MainApp:
     def __init__(self, master, gateway):
 
         # Create main frame for the application
-        frame = tk.Frame(master, bg="lightblue")
+        frame = tk.Frame(master, bg="lightsteelblue4")
         frame.pack(fill=tk.BOTH, expand=1)
 
         # Create frame for settings
-        self.frm_settings = tk.Frame(master=frame)
+        self.frm_settings = tk.Frame(master=frame, bg="lightsteelblue4")
         # Create and place content of frame
-        self.lbl_select = tk.Label(master=self.frm_settings, text="Active Webhook:")
+        self.lbl_select = tk.Label(master=self.frm_settings, text="Active Webhook:",
+            bg="lightsteelblue4"
+        )
         self.lbl_select.pack(side=tk.LEFT)
 
         # Create frame for webhook content
         self.frm_content = tk.LabelFrame(master=frame,
-            text="Webhook message", relief=tk.SUNKEN, width=600
+            text="Webhook message", relief=tk.SUNKEN, width=600, bg="lightsteelblue4"
         )
         self.frm_content.grid_propagate(0)
         # Create and place content of frame
-        self.lbl_author = tk.Label(master=self.frm_content, text="Author:", padx=20)
-        self.entr_author = tk.Entry(master=self.frm_content, width=80)
-        self.lbl_title = tk.Label(master=self.frm_content, text="Title:", padx=20)
-        self.entr_title = tk.Entry(master=self.frm_content, width=80)
-        self.lbl_descrpt = tk.Label(master=self.frm_content,
-            text="Description:", padx=20
+        self.lbl_author = tk.Label(master=self.frm_content, text="Author:", padx=20,
+            bg="lightsteelblue4"
         )
-        self.txt_descrpt = tk.Text(master=self.frm_content, width=60, height=28)
-        self.lbl_fields = tk.Label(master=self.frm_content, text="Fields:", padx=20)
-        self.entr_fields = tk.Entry(master=self.frm_content, width=80)
-        self.lbl_picture = tk.Label(master=self.frm_content, text="Picture:", padx=20)
-        self.entr_picture = tk.Entry(master=self.frm_content, width=80)
-        self.lbl_footer = tk.Label(master=self.frm_content, text="Footer:", padx=20)
-        self.entr_footer = tk.Entry(master=self.frm_content, width=80)
+        self.entr_author = tk.Entry(master=self.frm_content, width=80,
+            bg="lightsteelblue3"
+        )
+        self.lbl_title = tk.Label(master=self.frm_content, text="Title:", padx=20,
+            bg="lightsteelblue4"
+        )
+        self.entr_title = tk.Entry(master=self.frm_content, width=80,
+            bg="lightsteelblue3"
+        )
+        self.lbl_descrpt = tk.Label(master=self.frm_content,
+            text="Description:", padx=20, bg="lightsteelblue4"
+        )
+        self.txt_descrpt = tk.Text(master=self.frm_content, width=60, height=28,
+            bg="lightsteelblue3"
+        )
+        self.lbl_fields = tk.Label(master=self.frm_content, text="Fields:", padx=20,
+            bg="lightsteelblue4"
+        )
+        self.entr_fields = tk.Entry(master=self.frm_content, width=80,
+            bg="lightsteelblue3"
+        )
+        self.lbl_picture = tk.Label(master=self.frm_content, text="Picture:", padx=20,
+            bg="lightsteelblue4"
+        )
+        self.entr_picture = tk.Entry(master=self.frm_content, width=80,
+            bg="lightsteelblue3"
+        )
+        self.lbl_footer = tk.Label(master=self.frm_content, text="Footer:", padx=20,
+            bg="lightsteelblue4"
+        )
+        self.entr_footer = tk.Entry(master=self.frm_content, width=80,
+            bg="lightsteelblue3"
+        )
 
         self.lbl_author.grid(row=0, column=0, sticky="w")
         self.entr_author.grid(row=0, column=1, sticky="w")
@@ -68,22 +92,24 @@ class MainApp:
         self.entr_footer.grid(row=5, column=1, sticky="w")
 
         # Create frame for result
-        self.frm_result = tk.Frame(master=frame, width=200)
+        self.frm_result = tk.Frame(master=frame, width=200, bg="lightsteelblue4")
         # Create and place content of frame
         self.lbl_result = tk.Label(master=self.frm_result,
-            text="Webhook status history:", pady=5
+            text="Webhook status history:", pady=5, bg="lightsteelblue4"
         )
-        self.txt_return = tk.Text(master=self.frm_result)
+        self.txt_return = tk.Text(master=self.frm_result, bg="lightsteelblue3")
         self.txt_return.config(state=tk.NORMAL)
         self.txt_return.insert(tk.INSERT, "Return status of webhook message.\n")
         self.txt_return.config(state=tk.DISABLED)
 
         self.btn_settings = tk.Button(master=self.frm_result,
-            text="Settings", bg="lightyellow", pady=10,
+            text="Settings", bg="lightskyblue3",
+            activebackground="lightblue", pady=10,
             command=self.settings_btn_exec
         )
         self.btn_send = tk.Button(master=self.frm_result,
-            text="Send", bg="lightblue", pady=10,
+            text="Send", bg="seagreen3", 
+            activebackground="seagreen1", pady=10,
             command=self.send_btn_exec
         )
         self.lbl_result.pack(side=tk.TOP)
@@ -104,9 +130,12 @@ class MainApp:
         self.mbvar = tk.StringVar(self.frm_settings)
         self.mbvar.set(self.mboptions[0])
         self.mb = tk.OptionMenu(self.frm_settings, self.mbvar,
-            self.mboptions[0], self.mboptions[2]
+            self.mboptions[0], self.mboptions[2],
         )
-        self.mb.config(height=1)
+        self.mb.config(height=1, bg="lightsteelblue3",
+            highlightbackground="lightsteelblue3",
+            activebackground="lightsteelblue3",
+        )
         self.mb.pack(side=tk.LEFT)
 
     def send_btn_exec(self):
