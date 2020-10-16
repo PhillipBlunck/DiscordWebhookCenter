@@ -9,8 +9,8 @@
 ######################################################################################
 
 echo "{"
-echo -e "\t\"server1\":\"\","
-echo -e "\t\"webhook1\":\"\","
-echo -e "\t\"server2\":\"\","
-echo -e "\t\"webhook2\":\"\""
+echo "\t\"server1\":\"\","
+echo "\t\"webhook1\":\"\","
+echo "\t\"server2\":\"\","
+echo "\t\"webhook2\":\"\""
 echo "}"
