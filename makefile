@@ -18,18 +18,21 @@ prepare:
 	@ for PIPPACKAGE in $(PIPPACKAGES); do \
 	pip3 show $$PIPPACKAGE 1>/dev/null 2>/dev/null || \
 	sudo pip3 install --quiet $$PIPPACKAGE; done
-	@ touch $&
+	@ touch $@
 
 install: prepare
-	@ .\generate_settings.sh > test.txt
-	@ touch $&
+	@ sh generate_settings.sh > settings.json
+	@ touch $@
 
-start: python3 DiscordWebhookClient.py
+start: install
+	python3 DiscordWebhookCenter.py
 
 clean:
 	rm -rf __pycache__
 
 distclean: clean
-	rm settings.json
+	rm -rf settings.json
+	rm -rf install
+	rm -rf prepare
 
 ######################################################################################
